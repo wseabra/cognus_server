@@ -1,0 +1,15 @@
+package br.com.csm.entidade;
+
+import java.io.Serializable;
+
+public class Topico implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
+	private long topico_id;
+	private String descricao_topico;
+	private long num_seguidores;
+	
+	
+
+}

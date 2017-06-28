@@ -1,0 +1,49 @@
+package br.com.csm.entidade;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@Entity
+@XmlRootElement
+public class Topico implements Serializable{
+	
+	private static final int serialVersionUID = 1L;
+	
+	private int topico_id;
+	private String descricao_topico;
+	private int num_seguidores;
+	
+	@Id
+	@GeneratedValue
+	@Column(name = "topico_id", unique = true, nullable = false)
+	public int getTopico_id() {
+		return topico_id;
+	}
+	public void setTopico_id(int topico_id) {
+		this.topico_id = topico_id;
+	}
+	
+	@Column(name = "descricao_topico", unique = true, nullable = false)
+	public String getDescricao_topico() {
+		return descricao_topico;
+	}
+	public void setDescricao_topico(String descricao_topico) {
+		this.descricao_topico = descricao_topico;
+	}
+	
+	@Column(name = "num_seguidores", unique = true, nullable = false)
+	public int getNum_seguidores() {
+		return num_seguidores;
+	}
+	public void setNum_seguidores(int num_seguidores) {
+		this.num_seguidores = num_seguidores;
+	}
+	
+	
+
+}

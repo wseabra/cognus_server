@@ -1,0 +1,98 @@
+package br.com.csm.entidade;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+public class Resposta implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
+	private long resp_id;
+	private long user_id;
+	private long perg_id;
+	private String texto_resp;
+	private long num_votos_positivos;
+	private long num_votos_negativos;
+	
+	@ManyToOne()
+	@JoinColumn(name="user_id", referencedColumnName = "user_id")
+	private Usuario usuario;
+	
+	@ManyToMany()
+	@JoinTable(name = "PerguntaResposta", joinColumns=@JoinColumn(name="perg_id"), inverseJoinColumns=@JoinColumn(name="resp_id"))
+	private List<Pergunta> listPergunta;
+	
+	
+	@Id
+	@GeneratedValue
+	@Column(name = "resp_id", unique = true, nullable = false)
+	public long getResp_id() {
+		return resp_id;
+	}
+	public void setResp_id(long resp_id) {
+		this.resp_id = resp_id;
+	}
+	
+	@Column(name = "user_id", unique = true, nullable = false)
+	public long getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(long user_id) {
+		this.user_id = user_id;
+	}
+	
+	@Column(name = "perg_id", unique = true, nullable = false)
+	public long getPerg_id() {
+		return perg_id;
+	}
+	public void setPerg_id(long perg_id) {
+		this.perg_id = perg_id;
+	}
+	
+	@Column(name = "texto_resp", unique = true, nullable = false)
+	public String getTexto_resp() {
+		return texto_resp;
+	}
+	public void setTexto_resp(String texto_resp) {
+		this.texto_resp = texto_resp;
+	}
+	
+	@Column(name = "num_votos_positivos", unique = true, nullable = false)
+	public long getNum_votos_positivos() {
+		return num_votos_positivos;
+	}
+	public void setNum_votos_positivos(long num_votos_positivos) {
+		this.num_votos_positivos = num_votos_positivos;
+	}
+	
+	@Column(name = "num_votos_negativos", unique = true, nullable = false)
+	public long getNum_votos_negativos() {
+		return num_votos_negativos;
+	}
+	public void setNum_votos_negativos(long num_votos_negativos) {
+		this.num_votos_negativos = num_votos_negativos;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	public List<Pergunta> getListPergunta() {
+		return listPergunta;
+	}
+	public void setListPergunta(List<Pergunta> listPergunta) {
+		this.listPergunta = listPergunta;
+	}
+	
+	
+
+}

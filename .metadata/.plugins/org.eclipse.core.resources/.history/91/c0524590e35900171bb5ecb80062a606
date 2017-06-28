@@ -1,0 +1,72 @@
+package br.com.csm.entidade;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@Entity
+@XmlRootElement
+public class Usuario implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue
+	private long user_id;
+	@Column
+	private String user_name;
+	@Column
+	private String user_email;
+	@Column
+	private String user_senha;
+	@Column
+	private long user_numseguidores;
+	public long getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(long user_id) {
+		this.user_id = user_id;
+	}
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+	public String getUser_email() {
+		return user_email;
+	}
+	public void setUser_email(String user_email) {
+		this.user_email = user_email;
+	}
+	public String getUser_senha() {
+		return user_senha;
+	}
+	public void setUser_senha(String user_senha) {
+		this.user_senha = user_senha;
+	}
+	public long getUser_numseguidores() {
+		return user_numseguidores;
+	}
+	public void setUser_numseguidores(long user_numseguidores) {
+		this.user_numseguidores = user_numseguidores;
+	}
+	
+	
+	
+	//gets and setters....
+	
+
+	
+	
+	
+	
+
+}

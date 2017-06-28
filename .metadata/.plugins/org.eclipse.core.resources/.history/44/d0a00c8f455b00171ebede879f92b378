@@ -1,0 +1,42 @@
+package br.com.csm.entidade;
+
+import java.io.Serializable;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+public class Seguidores implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
+	@ManyToOne()
+	@JoinColumn(name="seguindo_user_id", referencedColumnName = "user_id")
+	private Usuario usuario;
+	
+	
+	@ManyToOne()
+	@JoinColumn(name="seguidor_user_id", referencedColumnName = "user_id")
+	private Usuario usuarios;
+
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+
+	public Usuario getUsuarios() {
+		return usuarios;
+	}
+
+
+	public void setUsuarios(Usuario usuarios) {
+		this.usuarios = usuarios;
+	}
+	
+
+}
