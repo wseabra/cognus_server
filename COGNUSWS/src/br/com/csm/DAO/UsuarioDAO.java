@@ -1,10 +1,15 @@
 package br.com.csm.DAO;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.apache.commons.collections.bag.SynchronizedSortedBag;
+
+import br.com.csm.entidade.Topico;
 import br.com.csm.entidade.User;
 
 public class UsuarioDAO {
@@ -28,9 +33,9 @@ public class UsuarioDAO {
 		entityManager.remove(entityManager.merge(usuario));
 	}
 	
-	public User consultar(Long user_id){
-		return entityManager.getReference(User.class, user_id);
-	}
+//	public User consultar(Long user_id){
+//		return entityManager.getReference(User.class, user_id);
+//	}
 	
 
 	public List<User> listar(){
@@ -41,16 +46,36 @@ public class UsuarioDAO {
 		return query.getResultList();
 	}
 	
-	public boolean autenticarUsuario(String user_email, String user_senha){
+	public User getUser(long id) {
+
+		String sql = "Select a from User a where a.user_id="+id;
+		//String sql = "Select * from User where user_id="+id;
+		Query query = entityManager.createQuery(sql);
+
+		return (User) query.getSingleResult();
+	}
+	
+	public User getUserEmail(String email) {
+
+		String nome = email.substring(1,email.length()-1);
+		System.out.println("NOOOME>>>" + nome);
+		String sql = "Select a from User a where a.user_email='"+nome+"'";
+		Query query = entityManager.createQuery(sql);
+
+		return (User) query.getSingleResult();
+	}
+	
+	public User autenticarUsuario(String email, String senha){
 		
-		String sql = "Select" + user_email + "," + user_senha + " from User";
+		
+	//	System.out.println(email_senha.get("username"));
+		String sql = "Select a from User a where a.user_email='" +email+"' and a.user_senha='" +senha+"'";
 		Query query = entityManager.createQuery(sql);
 		
-		if(query == null)
-			return false;
-		else
-			return true;
-		
+		return (User) query.getSingleResult();
+	
 	}
+	
+	
 	
 }

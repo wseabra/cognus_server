@@ -1,33 +1,45 @@
 package br.com.csm.entidade;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class Pergunta implements Serializable{
+public class Pergunta implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private long perg_id;
-	@ManyToOne()
-	@JoinColumn(name="user_id", referencedColumnName = "user_id")
-	private User usuario;
-	private String texto_perg;
-	
-	private String descricao;
-	
 	@Id
 	@GeneratedValue
-	@Column(name = "perg_id", unique = true, nullable = false)
+	private long perg_id;
+	
+	@ManyToOne()
+	@JoinColumn(name="user_id", referencedColumnName = "user_id")
+	private User user_id;
+	
+	@Column
+	private String texto_perg;
+	
+	@Column
+	private String descricao;
+	
+	@ManyToMany(mappedBy="listPergunta")
+	private List<Topico> listTopicos;
+	
+	//@Id
+	//@GeneratedValue
+	//@Column(name = "perg_id", unique = true, nullable = false)
 	public long getPerg_id() {
 		return perg_id;
 	}
@@ -36,7 +48,7 @@ public class Pergunta implements Serializable{
 	}
 	
 	
-	@Column(name = "texto_perg", unique = true, nullable = false)
+	//@Column(name = "texto_perg", unique = true, nullable = false)
 	public String getTexto_perg() {
 		return texto_perg;
 	}
@@ -44,7 +56,7 @@ public class Pergunta implements Serializable{
 		this.texto_perg = texto_perg;
 	}
 	
-	@Column(name = "descricao", unique = true, nullable = false)
+	//@Column(name = "descricao", unique = true, nullable = false)
 	public String getDescricao() {
 		return descricao;
 	}
@@ -52,11 +64,11 @@ public class Pergunta implements Serializable{
 		this.descricao = descricao;
 	}
 	
-	public User getUsuario() {
-		return usuario;
+	public User getUser_id() {
+		return user_id;
 	}
-	public void setUsuario(User usuario) {
-		this.usuario = usuario;
+	public void setUser_id(User user_id) {
+		this.user_id = user_id;
 	}
 	
 	

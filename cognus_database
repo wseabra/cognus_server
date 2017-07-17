@@ -1,14 +1,15 @@
-CREATE TABLE Usuario
+CREATE TABLE User
 (
-	user_id int primary key auto_increment,
-	user_name VARCHAR(30) NOT NULL,
-	user_email VARCHAR(30) NOT NULL,
-	user_senha VARCHAR(30) NOT NULL,
-	user_numseguidores INT NOT NULL
+	user_id bigint(20) primary key auto_increment NOT NULL,
+	user_name VARCHAR(30) DEFAULT NULL,
+	user_email VARCHAR(30) DEFAULT NULL,
+	user_senha VARCHAR(30) DEFAULT NULL,
+	user_numseguidores bigint(20) DEFAULT NULL
 );
 
 CREATE TABLE Seguidores
 (
+	id bigint(20) 	NOT BULL,
 	seguindo_user_id INT NOT NULL,
 	seguidor_user_id INT NOT NULL,
 	FOREIGN KEY(seguindo_user_id) REFERENCES Usuario(user_id),

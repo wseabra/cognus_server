@@ -33,7 +33,7 @@ public class Resposta implements Serializable {
 
 	@ManyToOne()
 	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
-	private User usuario;
+	private User user_id;
 
 	@ManyToMany()
 	@JoinTable(name = "PerguntaResposta", joinColumns = @JoinColumn(name = "resp_id"), inverseJoinColumns = @JoinColumn(name = "perg_id"))
@@ -80,11 +80,11 @@ public class Resposta implements Serializable {
 	}
 
 	public User getUsuario() {
-		return usuario;
+		return user_id;
 	}
 
-	public void setUsuario(User usuario) {
-		this.usuario = usuario;
+	public void setUsuario(User user_id) {
+		this.user_id = user_id;
 	}
 
 	public List<Pergunta> getListPergunta() {
