@@ -22,9 +22,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class User implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 
@@ -44,6 +41,14 @@ public class User implements Serializable {
 	@JoinTable(name = "TopicoUser", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="topico_id"))
 	private List<Topico> listTopicos;
 	
+	public User()
+	{};
+	
+	public User(String user_email, List<Topico> listTopicos)
+	{
+		this.user_email = user_email;
+		this.listTopicos = listTopicos;
+	}
 	
 	public long getUser_id() {
 		return user_id;
@@ -61,7 +66,7 @@ public class User implements Serializable {
 		this.user_id = user_id;
 	}
 	
-	@Column(name = "user_name", unique = true, nullable = false)
+	//@Column(name = "user_name", unique = true, nullable = false)
 	public String getUser_name() {
 		return user_name;
 	}
@@ -70,7 +75,7 @@ public class User implements Serializable {
 		this.user_name = user_name;
 	}
 	
-	@Column(name = "user_email", unique = true, nullable = false)
+	//@Column(name = "user_email", unique = true, nullable = false)
 	public String getUser_email() {
 		return user_email;
 	}

@@ -1,11 +1,16 @@
 package br.com.csm.entidade;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -14,13 +19,32 @@ public class Topico implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private long topico_id;
-	private String descricao_topico;
-	private long num_seguidores;
-	
 	@Id
 	@GeneratedValue
-	@Column(name = "topico_id", unique = true, nullable = false)
+	private long topico_id;
+	
+	public List<User> getListUser() {
+		return listUser;
+	}
+	public void setListUser(List<User> listUser) {
+		this.listUser = listUser;
+	}
+	@Column
+	private String descricao_topico;
+	
+	@Column
+	private long num_seguidores;
+	
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name = "TopicoPergunta", joinColumns=@JoinColumn(name="topico_id"), inverseJoinColumns=@JoinColumn(name="perg_id"))
+	private List<Pergunta> listPergunta;
+	
+	@ManyToMany(mappedBy = "listTopicos")
+	private List<User> listUser;
+	
+	//@Id
+	//@GeneratedValue
+	//@Column(name = "topico_id", unique = true, nullable = false)
 	public long getTopico_id() {
 		return topico_id;
 	}
@@ -28,7 +52,7 @@ public class Topico implements Serializable{
 		this.topico_id = topico_id;
 	}
 	
-	@Column(name = "descricao_topico", unique = true, nullable = false)
+	//@Column(name = "descricao_topico", unique = true, nullable = false)
 	public String getDescricao_topico() {
 		return descricao_topico;
 	}
@@ -36,7 +60,7 @@ public class Topico implements Serializable{
 		this.descricao_topico = descricao_topico;
 	}
 	
-	@Column(name = "num_seguidores", unique = true, nullable = false)
+	//@Column(name = "num_seguidores", unique = true, nullable = false)
 	public long getNum_seguidores() {
 		return num_seguidores;
 	}
@@ -44,6 +68,11 @@ public class Topico implements Serializable{
 		this.num_seguidores = num_seguidores;
 	}
 	
-	
+	public List<Pergunta> getListPergunta() {
+		return listPergunta;
+	}
+	public void setListPergunta(List<Pergunta> listPergunta) {
+		this.listPergunta = listPergunta;
+	}
 
 }
