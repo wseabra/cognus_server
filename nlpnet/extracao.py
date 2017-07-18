@@ -2,7 +2,7 @@ import nlpnet
 import sys
 import random
 
-nlpnet.set_data_dir('pos-pt/')
+nlpnet.set_data_dir('/home/waldomiro/Documentos/cognus_server/nlpnet/pos-pt/')
 
 t = nlpnet.POSTagger()
 tagged_text = t.tag(sys.argv[1])
@@ -16,7 +16,7 @@ i = 0
 while(i < len(lista_palavras)):
     tupla = lista_palavras[i]
     if tupla[1] == 'NPROP':
-        topico += tupla[0]
+        topico +=   tupla[0]
         i = i+1
         if (i < len(lista_palavras)):
             proxTupla = lista_palavras[i]
