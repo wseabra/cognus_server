@@ -3,6 +3,7 @@ package br.com.csm.resources;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -80,32 +81,19 @@ public class UsuarioResources {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public User cadastrarUsuario(User usuario){
+		System.out.println("RECEBENDO EMAIL\n>>>> " + usuario.getUser_email() + "\nRECEBENDO LIST TOPICOS\n  " + usuario.getListTopicos());
 		EntityManager em = JPAUtil.getEntityManager();
-		TopicoDAO dao2 = new TopicoDAO(em);
 		UsuarioDAO dao = new UsuarioDAO(em);
-		List<Topico> lista = new ArrayList<Topico>();
 		em.getTransaction().begin();
-		dao.cadastrar(usuario);	
+		dao.cadastrar(usuario);
 		em.getTransaction().commit();
+		
+		System.out.println("RETORNADN CADASTRO >>>>\n" + usuario);
+		
+		System.out.println(usuario.getListTopicos());
 		
 		return usuario;
 	}
-	
-	@POST
-	@Path("/cadastrarUsuarioTopico")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public User cadastrarUsuarioTopico(User usuario){
-		EntityManager em = JPAUtil.getEntityManager();
-		UsuarioDAO dao = new UsuarioDAO(em);
-		TopicoDAO dao2 = new TopicoDAO(em);
-		em.getTransaction().begin();
-		dao.cadastrar(usuario);	
-		em.getTransaction().commit();
-		
-		return usuario;
-	}
-	
 	
 	@POST
 	@Path("/autenticarUsuario")
@@ -119,9 +107,12 @@ public class UsuarioResources {
 			usuario2 = dao.autenticarUsuario(usuario.getUser_email(), usuario.getUser_senha());
  
 		}catch (Exception e) {
+			System.out.println("ENTROU NO EXCEPTION!! -----------------------------");
 			usuario2 = null;
 		}
 		
+		System.out.println("RETORNANDO >>>>> " + usuario2);
+		System.out.println("LIST TOPICOS>>>> " + usuario2.getListTopicos());
 		return usuario2;
 	}
 }

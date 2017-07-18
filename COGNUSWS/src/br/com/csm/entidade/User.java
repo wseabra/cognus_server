@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -37,8 +38,10 @@ public class User implements Serializable {
 	@Column
 	private long user_numseguidores;
 	
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name = "TopicoUser", joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="topico_id"))
+	@ManyToMany
+	@JoinTable(name = "TopicoUser", joinColumns=
+    {@JoinColumn(name="user_id")}, 
+    inverseJoinColumns={@JoinColumn(name="topico_id")})
 	private List<Topico> listTopicos;
 	
 	public User()
@@ -66,7 +69,6 @@ public class User implements Serializable {
 		this.user_id = user_id;
 	}
 	
-	//@Column(name = "user_name", unique = true, nullable = false)
 	public String getUser_name() {
 		return user_name;
 	}
@@ -75,7 +77,6 @@ public class User implements Serializable {
 		this.user_name = user_name;
 	}
 	
-	//@Column(name = "user_email", unique = true, nullable = false)
 	public String getUser_email() {
 		return user_email;
 	}
@@ -97,17 +98,5 @@ public class User implements Serializable {
 	}
 	public void setUser_numseguidores(long user_numseguidores) {
 		this.user_numseguidores = user_numseguidores;
-	}
-
-	
-	
-	
-	//gets and setters....
-	
-
-	
-	
-	
-	
-
+	}	
 }

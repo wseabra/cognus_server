@@ -2,7 +2,7 @@ import nlpnet
 import sys
 import random
 
-nlpnet.set_data_dir('/home/waldomiro/Documentos/cognus_server/nlpnet/pos-pt/')
+nlpnet.set_data_dir('pos-pt/')
 
 t = nlpnet.POSTagger()
 tagged_text = t.tag(sys.argv[1])

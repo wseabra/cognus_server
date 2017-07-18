@@ -1,5 +1,6 @@
 package br.com.csm.DAO;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -20,8 +21,7 @@ public class UsuarioDAO {
 		this.entityManager= entityManager;
 	}
 	
-	public void cadastrar(User usuario){
-		
+	public void cadastrar(User usuario){		
 		entityManager.persist(usuario);
 	}
 	
@@ -68,13 +68,14 @@ public class UsuarioDAO {
 	public User autenticarUsuario(String email, String senha){
 		
 		
-	//	System.out.println(email_senha.get("username"));
+		System.out.println("EMAIL >> " + email + "\nSENHA >> " + senha);
 		String sql = "Select a from User a where a.user_email='" +email+"' and a.user_senha='" +senha+"'";
 		Query query = entityManager.createQuery(sql);
 		
 		return (User) query.getSingleResult();
 	
 	}
+	
 	
 	
 	

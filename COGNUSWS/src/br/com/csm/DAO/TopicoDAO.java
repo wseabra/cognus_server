@@ -1,11 +1,11 @@
 package br.com.csm.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import br.com.csm.entidade.Pergunta;
 import br.com.csm.entidade.Topico;
 
 public class TopicoDAO {
@@ -39,6 +39,4 @@ public class TopicoDAO {
 		
 		return query.getResultList();
 	}
-	
-
 }

@@ -9,26 +9,26 @@ CREATE TABLE User
 
 CREATE TABLE Seguidores
 (
-	id bigint(20) 	NOT BULL,
-	seguindo_user_id INT NOT NULL,
-	seguidor_user_id INT NOT NULL,
+	id bigint(20) NOT NULL,
+	seguindo_user_id bigint(20) NOT NULL,
+	seguidor_user_id bigint(20) NOT NULL,
 	FOREIGN KEY(seguindo_user_id) REFERENCES Usuario(user_id),
 	FOREIGN KEY(seguidor_user_id) REFERENCES Usuario(user_id)
 );
 
 CREATE TABLE Pergunta
 (
-	user_id INT NOT NULL,
-	perg_id int primary key auto_increment,
+	perg_id bigint(20) primary key auto_increment,
+	user_id bigint(20) NOT NULL,
 	texto_perg VARCHAR(1000) NOT NULL,
 	descricao VARCHAR(1000),
-	FOREIGN KEY(user_id) REFERENCES Usuario(user_id)
+	FOREIGN KEY(user_id) REFERENCES User(user_id)
 );
 
 CREATE TABLE Resposta
 (
-	user_id INT NOT NULL,
-	resp_id int primary key auto_increment,
+	user_id bigint(20) NOT NULL,
+	resp_id bigint(20) primary key auto_increment,
 	texto_resp   VARCHAR(1000) NOT NULL,
 	num_votos_positivos INT,
 	num_votos_negativos INT,

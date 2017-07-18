@@ -66,7 +66,7 @@ public class PerguntaResources {
 
         try {
 
-			String[] cmd = {"python2.7","/home/waldomiro/Documentos/cognus_server/nlpnet/extracao.py",s};
+			String[] cmd = {"python2.7","/home/damhur/Dropbox/Cognus/nlpnet/pos-pt/extracao.py",s};
             Process p = Runtime.getRuntime().exec(cmd);
 
             BufferedReader stdInput = new BufferedReader(new

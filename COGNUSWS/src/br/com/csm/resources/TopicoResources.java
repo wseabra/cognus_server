@@ -32,9 +32,9 @@ public class TopicoResources {
 		EntityManager em = JPAUtil.getEntityManager();
 		TopicoDAO dao = new TopicoDAO(em);	
 		
-		list=dao.listar();
+		list= dao.listar();
 		
-		System.out.println("TESTEEE");
+		System.out.println("ENVIANDO >>>>\n" + list);
 		
 		return list;	
 	}
