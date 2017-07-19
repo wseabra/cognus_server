@@ -63,6 +63,7 @@ public class UsuarioResources {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public User buscarUsuarioEmail(String email){
+		System.out.println("Recebendo >>>\n" + email);
 		User usuario = new User();
 		EntityManager em = JPAUtil.getEntityManager();
 		UsuarioDAO dao = new UsuarioDAO(em);
@@ -72,6 +73,7 @@ public class UsuarioResources {
 		}catch (Exception e) {
 			usuario = null;
 		}
+		System.out.println("Enviando >>>\n" + usuario);
 		return usuario;
 	}
 	

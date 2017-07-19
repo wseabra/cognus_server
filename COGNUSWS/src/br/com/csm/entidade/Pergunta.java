@@ -36,12 +36,6 @@ public class Pergunta implements Serializable {
 	@Column
 	private String descricao;
 	
-	@ManyToMany(mappedBy="listPergunta")
-	private List<Topico> listTopicos;
-	
-	//@Id
-	//@GeneratedValue
-	//@Column(name = "perg_id", unique = true, nullable = false)
 	public long getPerg_id() {
 		return perg_id;
 	}
@@ -49,8 +43,6 @@ public class Pergunta implements Serializable {
 		this.perg_id = perg_id;
 	}
 	
-	
-	//@Column(name = "texto_perg", unique = true, nullable = false)
 	public String getTexto_perg() {
 		return texto_perg;
 	}
@@ -58,7 +50,6 @@ public class Pergunta implements Serializable {
 		this.texto_perg = texto_perg;
 	}
 	
-	//@Column(name = "descricao", unique = true, nullable = false)
 	public String getDescricao() {
 		return descricao;
 	}

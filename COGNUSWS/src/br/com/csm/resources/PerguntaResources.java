@@ -62,7 +62,6 @@ public class PerguntaResources {
 	}
 	
 	private String[] getTopicos(String s) {
-		//String saida = null;
 
         try {
 

@@ -68,7 +68,7 @@ public class UsuarioDAO {
 	public User autenticarUsuario(String email, String senha){
 		
 		
-		System.out.println("EMAIL >> " + email + "\nSENHA >> " + senha);
+		//System.out.println("EMAIL >> " + email + "\nSENHA >> " + senha);
 		String sql = "Select a from User a where a.user_email='" +email+"' and a.user_senha='" +senha+"'";
 		Query query = entityManager.createQuery(sql);
 		
