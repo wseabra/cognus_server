@@ -36,8 +36,8 @@ public class Pergunta implements Serializable {
 	@Column
 	private String descricao;
 	
-	@ManyToMany(mappedBy="listPergunta")
-	private List<Topico> listTopicos;
+//	@ManyToMany(mappedBy="listPergunta")
+//	private List<Topico> listTopicos;
 	
 	//@Id
 	//@GeneratedValue

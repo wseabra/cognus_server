@@ -16,93 +16,122 @@ import javax.ws.rs.core.MediaType;
 
 import br.com.csm.DAO.JPAUtil;
 import br.com.csm.DAO.PerguntaDAO;
+import br.com.csm.DAO.TopicoDAO;
 import br.com.csm.DAO.UsuarioDAO;
 import br.com.csm.entidade.Pergunta;
+import br.com.csm.entidade.Topico;
 import br.com.csm.entidade.User;
 
 @Path("/perguntas")
 public class PerguntaResources {
-	
-	
+
 	@GET
 	@Path("/listarPerguntas")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public List<Pergunta> listPerguntas(){
-		
+	public List<Pergunta> listPerguntas() {
+
 		List<Pergunta> list = new ArrayList<Pergunta>();
 		EntityManager em = JPAUtil.getEntityManager();
-		PerguntaDAO dao = new PerguntaDAO(em);	
-		
-		list=dao.listar();
-		
+		PerguntaDAO dao = new PerguntaDAO(em);
+
+		list = dao.listar();
+
 		System.out.println("TESTEEE");
-		
-		return list;	
+
+		return list;
 	}
-	
+
 	@POST
 	@Path("/cadastrarPergunta")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Pergunta cadastrarPergunta(Pergunta pergunta){
+	public Pergunta cadastrarPergunta(Pergunta pergunta) {
 		String[] topicos = null;
 		System.out.println("GABROIIIIIIIIIIIIIIIIIIIIIIIII");
-		System.out.println("RETORNOS - >>>" + pergunta.getDescricao()+ " " + pergunta.getTexto_perg() +" " +  pergunta.getUser_id());
-		
-		topicos = getTopicos(pergunta.getDescricao());
-		
+		System.out.println("RETORNOS - >>>" + pergunta.getDescricao() + " " + pergunta.getTexto_perg() + " "
+				+ pergunta.getUser_id());
+
 		EntityManager em = JPAUtil.getEntityManager();
-		PerguntaDAO dao = new PerguntaDAO(em);
-		em.getTransaction().begin();
-		dao.cadastrar(pergunta);	
-		em.getTransaction().commit();
+
+		topicos = getTopicos(pergunta.getDescricao());
+		TopicoDAO topicoDao = new TopicoDAO(em);
+		Topico topico = new Topico();
 		
+		em.getTransaction().begin();
+		PerguntaDAO dao = new PerguntaDAO(em);
+
+		dao.cadastrar(pergunta);
+
+		for (String string : topicos) {
+			topico = topicoDao.exitstTopics(string);
+
+			if (topico != null) {
+				List<Pergunta> list = new ArrayList<Pergunta>();
+				list = topico.getListPergunta();
+				list.add(pergunta);
+				topico.setListPergunta(list);
+				topicoDao.alterar(topico);
+
+			} else {
+				List<Pergunta> list = new ArrayList<Pergunta>();
+				list.add(pergunta);
+				Topico topico2 = new Topico();
+				topico2.setDescricao_topico(string);
+				topico2.setListPergunta(list);
+				topicoDao.cadastrar(topico2);
+
+			}
+		}
+
+		em.getTransaction().commit();
+
 		return pergunta;
 	}
-	
+
 	private String[] getTopicos(String s) {
-		//String saida = null;
+		// String saida = null;
 
-        try {
+		try {
+			// Mário
+			// String[] cmd =
+			// {"python2.7","/home/damhur/Dropbox/Cognus/nlpnet/pos-pt/extracao.py",s};
 
-			String[] cmd = {"python2.7","/home/damhur/Dropbox/Cognus/nlpnet/pos-pt/extracao.py",s};
-            Process p = Runtime.getRuntime().exec(cmd);
+			// Bruno
+			String[] cmd = { "python", "/Users/brunoabia/Desenvolvimento/COGNUS/cognus_server/nlpnet/extracao.py", s };
 
-            BufferedReader stdInput = new BufferedReader(new
-                 InputStreamReader(p.getInputStream()));
+			Process p = Runtime.getRuntime().exec(cmd);
 
-            BufferedReader stdError = new BufferedReader(new
-                 InputStreamReader(p.getErrorStream()));
+			BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
-            // read the output from the command
-            System.out.println("Here is the standard output of the command:\n");
-        		String saida = stdInput.readLine();
+			BufferedReader stdError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
 
+			// read the output from the command
+			System.out.println("Here is the standard output of the command:\n");
+			String saida = stdInput.readLine();
+			System.out.println(saida);
 			System.out.println("lista de topicos");
 			String[] topicos = saida.split(";");
 
 			for (String i : topicos) {
 
-					System.out.println(i);
+				System.out.println(i);
 
 			}
 
-            // read any errors from the attempted command
-            System.out.println("Here is the standard error of the command (if any):\n");
-            while ((s = stdError.readLine()) != null) {
-                System.out.println(s);
-            }
-            
-            return topicos;            
+			// read any errors from the attempted command
+			System.out.println("Here is the standard error of the command (if any):\n");
+			while ((s = stdError.readLine()) != null) {
+				System.out.println(s);
+			}
 
-        }
-        catch (IOException e) {
-            System.out.println("exception happened - here's what I know: ");
-            e.printStackTrace();
-        }	
-        return null;
+			return topicos;
+
+		} catch (IOException e) {
+			System.out.println("exception happened - here's what I know: ");
+			e.printStackTrace();
+		}
+		return null;
 	}
-	
 
 }
