@@ -41,4 +41,14 @@ public class PerguntaDAO {
 		return query.getResultList();
 	}
 	
+	public List<Pergunta> listarPerguntasTopico(String id){
+		
+		String sql = "Select p from Pergunta p, Topico t inner join t.listPergunta a where p.perg_id=a.perg_id and t.topico_id="+id;
+		Query query = entityManager.createQuery(sql);
+		
+		//System.out.println("QUERY >>>" + query);
+		
+		return query.getResultList();
+	}
+	
 }	

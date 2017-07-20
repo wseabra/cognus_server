@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.collections.bag.SynchronizedSortedBag;
 
+import br.com.csm.entidade.Pergunta;
 import br.com.csm.entidade.Topico;
 import br.com.csm.entidade.User;
 
@@ -83,7 +84,14 @@ public class UsuarioDAO {
 	public List<Topico> listarTopicoUsuario(String id){
 		
 		String sql = "Select a from User a inner join a.listTopicos x where x.user_id="+id;
-		System.out.println("SQL>>> " + sql);
+		Query query = entityManager.createQuery(sql);
+		
+		return query.getResultList();
+	}
+	
+	public List<Pergunta> listarPerguntasUsuario(String id){
+		
+		String sql = "Select a from Pergunta a where a.user_id="+id;
 		Query query = entityManager.createQuery(sql);
 		
 		return query.getResultList();

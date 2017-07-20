@@ -60,6 +60,7 @@ public class TopicoResources {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Topico> buscarTopicoPergunta(String id){
 		System.out.println("ENTRANDO NO LISTAR TOPICO PERGUNTA\n");
+		System.out.println("ID >> " + id);
 		List<Topico> list = new ArrayList<Topico>();
 		EntityManager em = JPAUtil.getEntityManager();
 		TopicoDAO dao = new TopicoDAO(em);
@@ -72,6 +73,27 @@ public class TopicoResources {
 		}			
 		
 		System.out.println("RETORNANDO TOPICO PERGUNTA >> " + list);
+		return list;
+	}
+	
+	@POST
+	@Path("/listarTopicosUsuario")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Topico> listarTopicosUsuario(String id){
+		System.out.println("ENTRANDO NO LISTAR PERGUNTAS TOPICO\n");
+		List<Topico> list = new ArrayList<Topico>();
+		EntityManager em = JPAUtil.getEntityManager();
+		TopicoDAO dao = new TopicoDAO(em);
+		
+		list=dao.listarTopicosUsuario(id);
+		
+		if(list.size() == 1) {
+			Topico r = list.get(0);
+			list.add(r);
+		}			
+		
+		System.out.println("RETORNANDO PERGUNTAS TOPICO >> " + list);
 		return list;
 	}
 	

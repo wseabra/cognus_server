@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import br.com.csm.entidade.Pergunta;
 import br.com.csm.entidade.Resposta;
 import br.com.csm.entidade.Topico;
 
@@ -58,6 +59,27 @@ public class TopicoDAO {
 		
 		String sql = "Select t from Topico t inner join t.listPergunta p where p.perg_id="+id;
 		Query query = entityManager.createQuery(sql);
+		
+		return query.getResultList();
+	}
+	
+	public List<Pergunta> listarPerguntasTopico(String id){
+		
+		String sql = "Select t from Topico t inner join t.listPergunta p where t.topico_id="+id;
+		Query query = entityManager.createQuery(sql);
+		
+		//System.out.println("QUERY >>>" + query);
+		
+		return query.getResultList();
+	}
+	
+	public List<Topico> listarTopicosUsuario(String id){
+		
+		String sql = "Select t from Topico t, User u inner join u.listTopicos a where t.topico_id=a.topico_id and u.user_id="+id;
+		//String sql = "Select p from Pergunta p, Topico t inner join t.listPergunta a where p.perg_id=a.perg_id and t.topico_id="+id;
+		Query query = entityManager.createQuery(sql);
+		
+		//System.out.println("QUERY >>>" + query);
 		
 		return query.getResultList();
 	}

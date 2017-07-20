@@ -146,5 +146,26 @@ public class PerguntaResources {
 		}
 		return null;
 	}
+	
+	@POST
+	@Path("/listarPerguntasTopico")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Pergunta> buscarPerguntasTopico(String id){
+		System.out.println("ENTRANDO NO LISTAR PERGUNTAS TOPICO\n");
+		List<Pergunta> list = new ArrayList<Pergunta>();
+		EntityManager em = JPAUtil.getEntityManager();
+		PerguntaDAO dao = new PerguntaDAO(em);
+		
+		list=dao.listarPerguntasTopico(id);
+		
+		if(list.size() == 1) {
+			Pergunta r = list.get(0);
+			list.add(r);
+		}			
+		
+		System.out.println("RETORNANDO PERGUNTAS TOPICO >> " + list);
+		return list;
+	}
 
 }

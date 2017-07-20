@@ -18,6 +18,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import br.com.csm.DAO.JPAUtil;
 import br.com.csm.DAO.TopicoDAO;
 import br.com.csm.DAO.UsuarioDAO;
+import br.com.csm.entidade.Pergunta;
 import br.com.csm.entidade.Topico;
 import br.com.csm.entidade.User;
 
@@ -61,7 +62,7 @@ public class UsuarioResources {
 	@Path("/consultarUsuario")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public User buscarUsuario(String id){
+	public User consultarUsuario(String id){
 		System.out.println("ENTRANDO NO BUSCAR USUARIO!!!\n");
 		User usuario = new User();
 		EntityManager em = JPAUtil.getEntityManager();
@@ -187,6 +188,28 @@ public class UsuarioResources {
 		}			
 		
 		System.out.println("RETORNANDO TOPICO USUARIO >> " + list);
+		return list;
+	}
+	
+	@POST
+	@Path("/listarPerguntasUsuario")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Pergunta> listarPerguntasUsuario(String id){
+		System.out.println("ENTRANDO NO LISTAR PERGUNTA USUARIO\n");
+		System.out.println("ID >>> " + id);
+		List<Pergunta> list = new ArrayList<Pergunta>();
+		EntityManager em = JPAUtil.getEntityManager();
+		UsuarioDAO dao = new UsuarioDAO(em);
+		
+		list=dao.listarPerguntasUsuario(id);
+		
+//		if(list.size() == 1) {
+//			Topico r = list.get(0);
+//			list.add(r);
+//		}			
+		
+		System.out.println("RETORNANDO PERGUNTA USUARIO >> " + list);
 		return list;
 	}
 }

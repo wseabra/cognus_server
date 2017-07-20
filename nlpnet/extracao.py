@@ -27,11 +27,11 @@ while(i < len(lista_palavras)):
             topico += ';'
     i = i+1
 
-if (len(topico) == 0):
+#if (len(topico) == 0):
 
-    for (x,y) in lista_palavras:
-        if (y == 'N'):
-            topico += x + ";"
+for (x,y) in lista_palavras:
+    if (y == 'N'):
+        topico += x + ";"
 
 
 print topico
