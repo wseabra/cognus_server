@@ -34,8 +34,6 @@ public class TopicoResources {
 		
 		list= dao.listar();
 		
-		System.out.println("ENVIANDO >>>>\n" + list);
-		
 		return list;	
 	}
 	
@@ -54,6 +52,27 @@ public class TopicoResources {
 		em.getTransaction().commit();
 		
 		return topico;
+	}
+	
+	@POST
+	@Path("/listarTopicoPergunta")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Topico> buscarTopicoPergunta(String id){
+		System.out.println("ENTRANDO NO LISTAR TOPICO PERGUNTA\n");
+		List<Topico> list = new ArrayList<Topico>();
+		EntityManager em = JPAUtil.getEntityManager();
+		TopicoDAO dao = new TopicoDAO(em);
+		
+		list=dao.listarTopicoPergunta(id);
+		
+		if(list.size() == 1) {
+			Topico r = list.get(0);
+			list.add(r);
+		}			
+		
+		System.out.println("RETORNANDO TOPICO PERGUNTA >> " + list);
+		return list;
 	}
 	
 }

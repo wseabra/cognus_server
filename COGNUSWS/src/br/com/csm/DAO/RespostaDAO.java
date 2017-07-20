@@ -39,5 +39,13 @@ public class RespostaDAO {
 		
 		return query.getResultList();
 	}
+	
+	public List<Resposta> listarRespostaPergunta(String id){
+		
+		String sql = "Select a from Resposta a where a.perg_id="+id;
+		Query query = entityManager.createQuery(sql);
+		
+		return query.getResultList();
+	}
 
 }

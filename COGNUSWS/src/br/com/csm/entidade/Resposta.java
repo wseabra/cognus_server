@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -32,14 +33,8 @@ public class Resposta implements Serializable {
 	private long num_votos_positivos;
 	@Column
 	private long num_votos_negativos;
-
-	@ManyToOne()
-	@JoinColumn(name = "user_id", referencedColumnName = "user_id")
-	private User user_id;
-
-	@ManyToMany()
-	@JoinTable(name = "PerguntaResposta", joinColumns = @JoinColumn(name = "resp_id"), inverseJoinColumns = @JoinColumn(name = "perg_id"))
-	private List<Pergunta> listPergunta;
+	@Column
+	private long user_id;
 
 	public long getResp_id() {
 		return resp_id;
@@ -81,20 +76,22 @@ public class Resposta implements Serializable {
 		this.num_votos_negativos = num_votos_negativos;
 	}
 
-	public User getUsuario() {
+	public long getUser_id() {
 		return user_id;
 	}
 
-	public void setUsuario(User user_id) {
+	public void setUser_id(long user_id) {
 		this.user_id = user_id;
 	}
 
-	public List<Pergunta> getListPergunta() {
-		return listPergunta;
-	}
 
-	public void setListPergunta(List<Pergunta> listPergunta) {
-		this.listPergunta = listPergunta;
-	}
+//
+//	public List<Pergunta> getListPergunta() {
+//		return listPergunta;
+//	}
+//
+//	public void setListPergunta(List<Pergunta> listPergunta) {
+//		this.listPergunta = listPergunta;
+//	}
 
 }

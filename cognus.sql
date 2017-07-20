@@ -83,9 +83,7 @@ CREATE TABLE `Resposta` (
   `perg_id` bigint(20) DEFAULT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   `texto_resp` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`resp_id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `Resposta_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`)
+  PRIMARY KEY (`resp_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

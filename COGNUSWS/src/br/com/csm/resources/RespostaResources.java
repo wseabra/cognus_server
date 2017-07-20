@@ -40,20 +40,36 @@ public class RespostaResources {
 	}
 	
 	@POST
+	@Path("/listarRespostaPergunta")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Resposta> listarRespostasPergunta(String id){
+		System.out.println("ID (Listar Respostas Pergunta) >>> " + id);
+		List<Resposta> list = new ArrayList<Resposta>();
+		EntityManager em = JPAUtil.getEntityManager();
+		RespostaDAO dao = new RespostaDAO(em);
+		
+		list=dao.listarRespostaPergunta(id);
+		
+		if(list.size() == 1) {
+			Resposta r = list.get(0);
+			list.add(r);
+		}			
+		
+		return list;
+	}
+	
+	@POST
 	@Path("/cadastrarResposta")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Resposta cadastrarUsuario(Resposta resposta){
-		//System.out.println("RECEBENDO EMAIL\n>>>> " + usuario.getUser_email() + "\nRECEBENDO LIST TOPICOS\n  " + usuario.getListTopicos());
+	public Resposta cadastrarResposta(Resposta resposta){
+		System.out.println("ID >> " + resposta.getUser_id());
 		EntityManager em = JPAUtil.getEntityManager();
 		RespostaDAO dao = new RespostaDAO(em);
 		em.getTransaction().begin();
 		dao.cadastrar(resposta);
 		em.getTransaction().commit();
-		
-		//System.out.println("RETORNADN CADASTRO >>>>\n" + usuario);
-		
-		//System.out.println(usuario.getListTopicos());
 		
 		return resposta;
 	}

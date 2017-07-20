@@ -7,6 +7,11 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.collections.bag.SynchronizedSortedBag;
 
@@ -49,7 +54,6 @@ public class UsuarioDAO {
 	public User getUser(long id) {
 
 		String sql = "Select a from User a where a.user_id="+id;
-		//String sql = "Select * from User where user_id="+id;
 		Query query = entityManager.createQuery(sql);
 
 		return (User) query.getSingleResult();
@@ -76,7 +80,13 @@ public class UsuarioDAO {
 	
 	}
 	
-	
-	
+	public List<Topico> listarTopicoUsuario(String id){
+		
+		String sql = "Select a from User a inner join a.listTopicos x where x.user_id="+id;
+		System.out.println("SQL>>> " + sql);
+		Query query = entityManager.createQuery(sql);
+		
+		return query.getResultList();
+	}
 	
 }

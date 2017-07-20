@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -26,8 +27,8 @@ public class Pergunta implements Serializable {
 	@GeneratedValue
 	private long perg_id;
 	
-	@ManyToOne()
-	@JoinColumn(name="user_id", referencedColumnName = "user_id")
+	@ManyToOne
+	@JoinColumn(name="user_id", referencedColumnName="user_id")
 	private User user_id;
 	
 	@Column
@@ -35,7 +36,7 @@ public class Pergunta implements Serializable {
 	
 	@Column
 	private String descricao;
-	
+
 	public long getPerg_id() {
 		return perg_id;
 	}

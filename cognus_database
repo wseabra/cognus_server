@@ -1,0 +1,60 @@
+CREATE TABLE User
+(
+	user_id bigint(20) primary key auto_increment NOT NULL,
+	user_name VARCHAR(30) DEFAULT NULL,
+	user_email VARCHAR(30) DEFAULT NULL,
+	user_senha VARCHAR(30) DEFAULT NULL,
+	user_numseguidores bigint(20) DEFAULT NULL
+);
+
+CREATE TABLE Seguidores
+(
+	user_id bigint(20) NOT NULL,
+	seguindo_user_id bigint(20) NOT NULL,
+	seguidor_user_id bigint(20) NOT NULL,
+	FOREIGN KEY(seguindo_user_id) REFERENCES User(user_id),
+	FOREIGN KEY(seguidor_user_id) REFERENCES User(user_id)
+);
+
+CREATE TABLE Pergunta
+(
+	perg_id bigint(20) primary key auto_increment,
+	user_id bigint(20) NOT NULL,
+	texto_perg VARCHAR(30) NOT NULL,
+	descricao VARCHAR(30),
+	FOREIGN KEY(user_id) REFERENCES User(user_id)
+);
+
+CREATE TABLE Resposta
+(
+	user_id bigint(20) NOT NULL,
+	resp_id bigint(20) primary key auto_increment,
+	texto_resp VARCHAR(30) NOT NULL,
+	num_votos_positivos bigint(20),
+	num_votos_negativos bigint(20)
+);
+
+CREATE TABLE Topico
+(
+	topico_id int primary key auto_increment,
+	descricao_topico VARCHAR(100) NOT NULL,
+	num_seguidores bigint(20) NOT NULL
+);
+
+CREATE TABLE TopicoUser
+(
+	user_id bigint(20) NOT NULL,
+	topico_id bigint(20) NOT NULL,
+	PRIMARY KEY(user_id,topico_id),
+	FOREIGN KEY(user_id) REFERENCES User(user_id),
+	FOREIGN KEY(topico_id) REFERENCES Topico(topico_id)
+);
+
+CREATE TABLE TopicoPergunta
+(
+	topico_id bigint(20) not null,
+	perg_id bigint(20) not  null,
+	primary key(topico_id, perg_id),
+	foreign key(topico_id) references Topico(topico_id),
+	foreign key(perg_id) references Pergunta(perg_id)
+);
